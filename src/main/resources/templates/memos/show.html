@@ -7,14 +7,13 @@
 </head>
 
 <body>
+    <h1>メモ詳細</h1>
 
-    <h1>登録完了</h1>
-
+    <p>ID：<span th:text="${memo.id}"></span></p>
     <p>タイトル：<span th:text="${memo.title}"></span></p>
     <p>内容：<span th:text="${memo.content}"></span></p>
 
-    <a href="/memos/new">もう一度作成する</a>
-
+    <a href="/memos">一覧へ戻る</a>
 </body>
 
 </html>

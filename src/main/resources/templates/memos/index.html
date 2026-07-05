@@ -23,7 +23,9 @@
 
         <tr th:each="memo : ${memos}">
             <td th:text="${memo.id}"></td>
-            <td th:text="${memo.title}"></td>
+            <td>
+                <a th:href="@{/memos/{id}(id=${memo.id})}" th:text="${memo.title}"></a>
+            </td>
             <td th:text="${memo.content}"></td>
         </tr>
     </table>
