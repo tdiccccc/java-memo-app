@@ -1,8 +1,8 @@
 package com.example.javamemoapp.controller;
 
-import com.example.javamemoapp.dto.MemoSaveRequest;
 import com.example.javamemoapp.entity.Memo;
 import com.example.javamemoapp.form.MemoForm;
+import com.example.javamemoapp.mapper.MemoMapper;
 import com.example.javamemoapp.service.MemoService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -23,12 +23,24 @@ public class MemoController {
         this.memoService = memoService;
     }
 
+    /**
+     * 一覧表示
+     *
+     * @param model
+     * @return
+     */
     @GetMapping("/memos")
     public String index(Model model) {
         model.addAttribute("memos", memoService.findAll());
         return "memos/index";
     }
 
+    /**
+     * 新規作成画面
+     *
+     * @param model
+     * @return
+     */
     @GetMapping("/memos/new")
     public String newMemo(Model model) {
         model.addAttribute("memoForm", new MemoForm());
@@ -37,6 +49,13 @@ public class MemoController {
         return "memos/new";
     }
 
+    /**
+     * 新規作成メソッド
+     *
+     * @param memoForm
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("/memos")
     public String create(
             @Valid @ModelAttribute("memoForm") MemoForm memoForm,
@@ -45,31 +64,39 @@ public class MemoController {
             return "memos/new";
         }
 
-        MemoSaveRequest request = new MemoSaveRequest(
-                memoForm.getTitle(),
-                memoForm.getContent());
-
-        memoService.save(request);
+        memoService.save(MemoMapper.toSaveRequest(memoForm));
 
         return "redirect:/memos";
     }
 
+    /**
+     * 詳細表示
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/memos/{id}")
     public String show(@PathVariable Long id, Model model) {
         Memo memo = memoService.findById(id);
 
-        MemoForm memoForm = new MemoForm();
-        memoForm.setTitle(memo.getTitle());
-        memoForm.setContent(memo.getContent());
-
         model.addAttribute("memo", memo);
-        model.addAttribute("memoForm", memoForm);
+        model.addAttribute("memoForm", MemoMapper.toForm(memo));
         model.addAttribute("actionUrl", "/memos/" + id);
         model.addAttribute("method", "put");
 
         return "memos/show";
     }
 
+    /**
+     * 更新メソッド
+     *
+     * @param id
+     * @param memoForm
+     * @param bindingResult
+     * @param model
+     * @return
+     */
     @PutMapping("/memos/{id}")
     public String update(
             @PathVariable Long id,
@@ -86,11 +113,7 @@ public class MemoController {
             return "memos/show";
         }
 
-        MemoSaveRequest request = new MemoSaveRequest(
-                memoForm.getTitle(),
-                memoForm.getContent());
-
-        memoService.save(request);
+        memoService.update(id, MemoMapper.toSaveRequest(memoForm));
 
         return "redirect:/memos/" + id;
     }
