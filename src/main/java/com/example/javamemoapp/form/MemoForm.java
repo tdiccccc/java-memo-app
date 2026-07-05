@@ -13,12 +13,10 @@ public class MemoForm {
     private String content;
 
     public String getTitle() {
-        System.out.println("setTitle called : " + title);
         return title;
     }
 
     public void setTitle(String title) {
-        System.out.println("getTitle called");
         this.title = title;
     }
 
