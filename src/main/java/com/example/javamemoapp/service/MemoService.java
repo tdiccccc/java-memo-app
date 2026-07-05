@@ -3,6 +3,7 @@ package com.example.javamemoapp.service;
 import com.example.javamemoapp.entity.Memo;
 import com.example.javamemoapp.form.MemoForm;
 import com.example.javamemoapp.repository.MemoRepository;
+import com.example.javamemoapp.exception.MemoNotFoundException;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class MemoService {
 
     public Memo findById(Long id) {
         return memoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("メモが見つかりません"));
+                .orElseThrow(() -> new MemoNotFoundException(id));
     }
 
     public Memo update(Long id, MemoForm memoForm) {
