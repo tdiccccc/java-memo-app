@@ -17,12 +17,9 @@ public class MemoService {
 
     public Memo save(MemoForm memoForm) {
 
-        Memo memo = new Memo();
-
-        memo.setTitle(memoForm.getTitle());
-        memo.setContent(memoForm.getContent());
-
-        System.out.println("メモ保存");
+        Memo memo = Memo.create(
+                memoForm.getTitle(),
+                memoForm.getContent());
 
         return memoRepository.save(memo);
     }
@@ -39,9 +36,9 @@ public class MemoService {
     public Memo update(Long id, MemoForm memoForm) {
         Memo memo = findById(id);
 
-        memo.setTitle(memoForm.getTitle());
-        memo.setContent(memoForm.getContent());
-
+        memo.update(
+                memoForm.getTitle(),
+                memoForm.getContent());
         return memoRepository.save(memo);
     }
 }
