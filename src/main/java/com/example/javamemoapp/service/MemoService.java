@@ -41,4 +41,14 @@ public class MemoService {
                 request.content());
         return memoRepository.save(memo);
     }
+
+    /**
+     * 削除メソッド
+     *
+     * @param id
+     */
+    public void delete(Long id) {
+        Memo memo = findById(id);
+        memoRepository.delete(memo);
+    }
 }

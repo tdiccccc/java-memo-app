@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -116,5 +117,17 @@ public class MemoController {
         memoService.update(id, MemoMapper.toSaveRequest(memoForm));
 
         return "redirect:/memos/" + id;
+    }
+
+    /**
+     * 削除メソッド
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/memos/{id}")
+    public String delete(@PathVariable Long id) {
+        memoService.delete(id);
+        return "redirect:/memos";
     }
 }
