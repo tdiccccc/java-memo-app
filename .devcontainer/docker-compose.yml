@@ -1,0 +1,14 @@
+services:
+  app:
+    build: .
+    container_name: java-memo-app
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - gradle-cache:/home/vscode/.gradle
+    ports:
+      - "8080:8080"
+    tty: true
+
+volumes:
+  gradle-cache:
