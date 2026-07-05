@@ -1,6 +1,7 @@
 package com.example.javamemoapp.controller;
 
 import com.example.javamemoapp.form.MemoForm;
+import com.example.javamemoapp.service.MemoService;
 
 import jakarta.validation.Valid;
 
@@ -13,6 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MemoController {
+
+    private final MemoService memoService;
+
+    public MemoController(MemoService memoService) {
+        this.memoService = memoService;
+    }
 
     @GetMapping("/memos/new")
     public String newMemo(Model model) {
@@ -29,7 +36,10 @@ public class MemoController {
         if (bindingResult.hasErrors()) {
             return "memos/new";
         }
-        model.addAttribute("memo", memoForm);
+
+        MemoForm savedMemo = memoService.save(memoForm);
+
+        model.addAttribute("memo", savedMemo);
         return "memos/show";
     }
 }
