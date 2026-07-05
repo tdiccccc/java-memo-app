@@ -10,26 +10,9 @@
 
     <h1>メモ作成</h1>
 
-    <form th:action="@{/memos}" th:object="${memoForm}" method="post">
-        <div>
-            <label for="title">タイトル</label>
-            <input type="text" id="title" th:field="*{title}">
+    <div th:replace="~{memos/_form :: form}"></div>
 
-            <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red">
-            </div>
-        </div>
-
-        <div>
-            <label for="content">内容</label>
-
-            <textarea id="content" th:field="*{content}"></textarea>
-
-            <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" style="color:red">
-            </div>
-        </div>
-
-        <button type="submit">保存</button>
-    </form>
+    <a href="/memos">一覧へ戻る</a>
 
 </body>
 
