@@ -1,5 +1,6 @@
 package com.example.javamemoapp.controller;
 
+import com.example.javamemoapp.dto.MemoSaveRequest;
 import com.example.javamemoapp.entity.Memo;
 import com.example.javamemoapp.form.MemoForm;
 import com.example.javamemoapp.service.MemoService;
@@ -44,7 +45,11 @@ public class MemoController {
             return "memos/new";
         }
 
-        memoService.save(memoForm);
+        MemoSaveRequest request = new MemoSaveRequest(
+                memoForm.getTitle(),
+                memoForm.getContent());
+
+        memoService.save(request);
 
         return "redirect:/memos";
     }
@@ -81,7 +86,11 @@ public class MemoController {
             return "memos/show";
         }
 
-        memoService.update(id, memoForm);
+        MemoSaveRequest request = new MemoSaveRequest(
+                memoForm.getTitle(),
+                memoForm.getContent());
+
+        memoService.save(request);
 
         return "redirect:/memos/" + id;
     }

@@ -1,7 +1,7 @@
 package com.example.javamemoapp.service;
 
 import com.example.javamemoapp.entity.Memo;
-import com.example.javamemoapp.form.MemoForm;
+import com.example.javamemoapp.dto.MemoSaveRequest;
 import com.example.javamemoapp.repository.MemoRepository;
 import com.example.javamemoapp.exception.MemoNotFoundException;
 import java.util.List;
@@ -15,11 +15,11 @@ public class MemoService {
         this.memoRepository = memoRepository;
     }
 
-    public Memo save(MemoForm memoForm) {
+    public Memo save(MemoSaveRequest request) {
 
         Memo memo = Memo.create(
-                memoForm.getTitle(),
-                memoForm.getContent());
+                request.title(),
+                request.content());
 
         return memoRepository.save(memo);
     }
@@ -33,12 +33,12 @@ public class MemoService {
                 .orElseThrow(() -> new MemoNotFoundException(id));
     }
 
-    public Memo update(Long id, MemoForm memoForm) {
+    public Memo update(Long id, MemoSaveRequest request) {
         Memo memo = findById(id);
 
         memo.update(
-                memoForm.getTitle(),
-                memoForm.getContent());
+                request.title(),
+                request.content());
         return memoRepository.save(memo);
     }
 }
