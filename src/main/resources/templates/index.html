@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <title>Java Memo App</title>
+    <title th:text="${title}"></title>
 </head>
 
 <body>
-    <h1>Java Memo App</h1>
-    <p>Spring Bootで起動できました。</p>
+
+    <h1 th:text="${title}"></h1>
+
+    <p th:text="${message}"></p>
+
+    <p>
+        作成者：
+        <span th:text="${author}"></span>
+    </p>
+
 </body>
 
 </html>
