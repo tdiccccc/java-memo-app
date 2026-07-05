@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>メモ一覧</title>
+</head>
+
+<body>
+
+    <h1>メモ一覧</h1>
+
+    <p>
+        <a href="/memos/new">新規作成</a>
+    </p>
+
+    <table border="1">
+
+        <tr>
+            <th>ID</th>
+            <th>タイトル</th>
+        </tr>
+
+        <tr th:each="memo : ${memos}">
+            <td th:text="${memo.id}"></td>
+            <td th:text="${memo.title}"></td>
+        </tr>
+
+    </table>
+
+</body>
+
+</html>

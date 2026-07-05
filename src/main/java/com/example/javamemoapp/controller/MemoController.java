@@ -30,16 +30,22 @@ public class MemoController {
     @PostMapping("/memos")
     public String create(
             @Valid @ModelAttribute("memoForm") MemoForm memoForm,
-            BindingResult bindingResult,
-            Model model) {
+            BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "memos/new";
         }
 
-        MemoForm savedMemo = memoService.save(memoForm);
+        memoService.save(memoForm);
 
-        model.addAttribute("memo", savedMemo);
-        return "memos/show";
+        return "redirect:/memos";
+    }
+
+    @GetMapping("/memos")
+    public String index(Model model) {
+
+        model.addAttribute("memos", memoService.findAll());
+
+        return "memos/index";
     }
 }
