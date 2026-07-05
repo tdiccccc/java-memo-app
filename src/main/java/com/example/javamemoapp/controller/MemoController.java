@@ -2,9 +2,7 @@ package com.example.javamemoapp.controller;
 
 import com.example.javamemoapp.form.MemoForm;
 import com.example.javamemoapp.service.MemoService;
-
 import jakarta.validation.Valid;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +19,12 @@ public class MemoController {
         this.memoService = memoService;
     }
 
+    @GetMapping("/memos")
+    public String index(Model model) {
+        model.addAttribute("memos", memoService.findAll());
+        return "memos/index";
+    }
+
     @GetMapping("/memos/new")
     public String newMemo(Model model) {
         model.addAttribute("memoForm", new MemoForm());
@@ -31,7 +35,6 @@ public class MemoController {
     public String create(
             @Valid @ModelAttribute("memoForm") MemoForm memoForm,
             BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
             return "memos/new";
         }
@@ -39,13 +42,5 @@ public class MemoController {
         memoService.save(memoForm);
 
         return "redirect:/memos";
-    }
-
-    @GetMapping("/memos")
-    public String index(Model model) {
-
-        model.addAttribute("memos", memoService.findAll());
-
-        return "memos/index";
     }
 }

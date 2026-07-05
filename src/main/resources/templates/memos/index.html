@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <meta charset="UTF-8">
     <title>メモ一覧</title>
 </head>
 
@@ -14,17 +15,17 @@
     </p>
 
     <table border="1">
-
         <tr>
             <th>ID</th>
             <th>タイトル</th>
+            <th>内容</th>
         </tr>
 
         <tr th:each="memo : ${memos}">
             <td th:text="${memo.id}"></td>
             <td th:text="${memo.title}"></td>
+            <td th:text="${memo.content}"></td>
         </tr>
-
     </table>
 
 </body>
