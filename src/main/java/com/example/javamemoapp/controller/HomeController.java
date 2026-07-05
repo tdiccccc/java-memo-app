@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
@@ -30,5 +31,20 @@ public class HomeController {
             Model model) {
         model.addAttribute("id", id);
         return "user";
+    }
+
+    @GetMapping("/form")
+    public String form() {
+        return "form";
+    }
+
+    @PostMapping("/form")
+    public String submit(
+            @RequestParam String name,
+            Model model) {
+
+        model.addAttribute("name", name);
+
+        return "result";
     }
 }
