@@ -1,5 +1,6 @@
 package com.example.javamemoapp.controller;
 
+import com.example.javamemoapp.entity.Memo;
 import com.example.javamemoapp.form.MemoForm;
 import com.example.javamemoapp.service.MemoService;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 public class MemoController {
@@ -29,6 +31,8 @@ public class MemoController {
     @GetMapping("/memos/new")
     public String newMemo(Model model) {
         model.addAttribute("memoForm", new MemoForm());
+        model.addAttribute("actionUrl", "/memos");
+        model.addAttribute("method", "post");
         return "memos/new";
     }
 
@@ -47,7 +51,38 @@ public class MemoController {
 
     @GetMapping("/memos/{id}")
     public String show(@PathVariable Long id, Model model) {
-        model.addAttribute("memo", memoService.findById(id));
+        Memo memo = memoService.findById(id);
+
+        MemoForm memoForm = new MemoForm();
+        memoForm.setTitle(memo.getTitle());
+        memoForm.setContent(memo.getContent());
+
+        model.addAttribute("memo", memo);
+        model.addAttribute("memoForm", memoForm);
+        model.addAttribute("actionUrl", "/memos/" + id);
+        model.addAttribute("method", "put");
+
         return "memos/show";
+    }
+
+    @PutMapping("/memos/{id}")
+    public String update(
+            @PathVariable Long id,
+            @Valid @ModelAttribute("memoForm") MemoForm memoForm,
+            BindingResult bindingResult,
+            Model model) {
+        if (bindingResult.hasErrors()) {
+            Memo memo = memoService.findById(id);
+
+            model.addAttribute("memo", memo);
+            model.addAttribute("actionUrl", "/memos/" + id);
+            model.addAttribute("method", "put");
+
+            return "memos/show";
+        }
+
+        memoService.update(id, memoForm);
+
+        return "redirect:/memos/" + id;
     }
 }

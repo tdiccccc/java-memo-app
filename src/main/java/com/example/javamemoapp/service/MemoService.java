@@ -34,4 +34,13 @@ public class MemoService {
         return memoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("メモが見つかりません"));
     }
+
+    public Memo update(Long id, MemoForm memoForm) {
+        Memo memo = findById(id);
+
+        memo.setTitle(memoForm.getTitle());
+        memo.setContent(memoForm.getContent());
+
+        return memoRepository.save(memo);
+    }
 }
