@@ -2,8 +2,8 @@ package com.example.javamemoapp.application.usecase.memo;
 
 import org.springframework.stereotype.Service;
 
-import com.example.javamemoapp.entity.Memo;
-import com.example.javamemoapp.repository.MemoRepository;
+import com.example.javamemoapp.domain.memo.Memo;
+import com.example.javamemoapp.domain.memo.MemoRepository;
 
 @Service
 public class DeleteMemoUseCase {

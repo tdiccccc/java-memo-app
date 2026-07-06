@@ -2,7 +2,7 @@ package com.example.javamemoapp.presentation.controller.memo;
 
 import com.example.javamemoapp.application.usecase.memo.ShowMemoUseCase;
 import com.example.javamemoapp.application.usecase.memo.UpdateMemoUseCase;
-import com.example.javamemoapp.entity.Memo;
+import com.example.javamemoapp.domain.memo.Memo;
 import com.example.javamemoapp.form.MemoForm;
 import com.example.javamemoapp.mapper.MemoMapper;
 import jakarta.validation.Valid;

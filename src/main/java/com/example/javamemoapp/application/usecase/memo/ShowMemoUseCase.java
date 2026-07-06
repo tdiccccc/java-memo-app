@@ -2,9 +2,8 @@ package com.example.javamemoapp.application.usecase.memo;
 
 import org.springframework.stereotype.Service;
 
-import com.example.javamemoapp.entity.Memo;
-import com.example.javamemoapp.exception.MemoNotFoundException;
-import com.example.javamemoapp.repository.MemoRepository;
+import com.example.javamemoapp.domain.memo.Memo;
+import com.example.javamemoapp.domain.memo.MemoRepository;
 
 @Service
 public class ShowMemoUseCase {
@@ -15,7 +14,6 @@ public class ShowMemoUseCase {
     }
 
     public Memo handle(Long id) {
-        return memoRepository.findById(id)
-                .orElseThrow(() -> new MemoNotFoundException(id));
+        return memoRepository.getById(id);
     }
 }

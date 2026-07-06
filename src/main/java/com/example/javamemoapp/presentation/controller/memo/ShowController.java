@@ -1,7 +1,7 @@
 package com.example.javamemoapp.presentation.controller.memo;
 
 import com.example.javamemoapp.application.usecase.memo.ShowMemoUseCase;
-import com.example.javamemoapp.entity.Memo;
+import com.example.javamemoapp.domain.memo.Memo;
 import com.example.javamemoapp.mapper.MemoMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

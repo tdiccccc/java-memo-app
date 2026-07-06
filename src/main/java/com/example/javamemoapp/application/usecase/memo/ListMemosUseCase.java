@@ -1,7 +1,7 @@
 package com.example.javamemoapp.application.usecase.memo;
 
-import com.example.javamemoapp.entity.Memo;
-import com.example.javamemoapp.repository.MemoRepository;
+import com.example.javamemoapp.domain.memo.Memo;
+import com.example.javamemoapp.domain.memo.MemoRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;
 

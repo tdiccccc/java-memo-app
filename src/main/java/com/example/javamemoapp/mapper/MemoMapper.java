@@ -1,7 +1,7 @@
 package com.example.javamemoapp.mapper;
 
 import com.example.javamemoapp.dto.MemoSaveRequest;
-import com.example.javamemoapp.entity.Memo;
+import com.example.javamemoapp.domain.memo.Memo;
 import com.example.javamemoapp.form.MemoForm;
 
 public class MemoMapper {
