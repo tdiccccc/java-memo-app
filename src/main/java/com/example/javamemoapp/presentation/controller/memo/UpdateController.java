@@ -1,9 +1,10 @@
 package com.example.javamemoapp.presentation.controller.memo;
 
+import com.example.javamemoapp.application.usecase.memo.ShowMemoUseCase;
+import com.example.javamemoapp.application.usecase.memo.UpdateMemoUseCase;
 import com.example.javamemoapp.entity.Memo;
 import com.example.javamemoapp.form.MemoForm;
 import com.example.javamemoapp.mapper.MemoMapper;
-import com.example.javamemoapp.service.MemoService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +16,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 @Controller
 public class UpdateController {
 
-    private final MemoService memoService;
+    private final UpdateMemoUseCase updateMemoUseCase;
+    private final ShowMemoUseCase showMemoUseCase;
 
-    public UpdateController(MemoService memoService) {
-        this.memoService = memoService;
+    public UpdateController(
+            UpdateMemoUseCase updateMemoUseCase,
+            ShowMemoUseCase showMemoUseCase) {
+        this.updateMemoUseCase = updateMemoUseCase;
+        this.showMemoUseCase = showMemoUseCase;
     }
 
     /**
@@ -37,7 +42,7 @@ public class UpdateController {
             BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
-            Memo memo = memoService.findById(id);
+            Memo memo = showMemoUseCase.handle(id);
 
             model.addAttribute("memo", memo);
             model.addAttribute("actionUrl", "/memos/" + id);
@@ -46,7 +51,7 @@ public class UpdateController {
             return "memos/show";
         }
 
-        memoService.update(id, MemoMapper.toSaveRequest(memoForm));
+        updateMemoUseCase.handle(id, MemoMapper.toSaveRequest(memoForm));
 
         return "redirect:/memos/" + id;
     }

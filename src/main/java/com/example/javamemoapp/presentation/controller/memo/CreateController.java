@@ -1,8 +1,8 @@
 package com.example.javamemoapp.presentation.controller.memo;
 
+import com.example.javamemoapp.application.usecase.memo.CreateMemoUseCase;
 import com.example.javamemoapp.form.MemoForm;
 import com.example.javamemoapp.mapper.MemoMapper;
-import com.example.javamemoapp.service.MemoService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class CreateController {
 
-    private final MemoService memoService;
+    private final CreateMemoUseCase createMemoUseCase;
 
-    public CreateController(MemoService memoService) {
-        this.memoService = memoService;
+    public CreateController(CreateMemoUseCase createMemoUseCase) {
+        this.createMemoUseCase = createMemoUseCase;
     }
 
     /**
@@ -49,7 +49,7 @@ public class CreateController {
             return "memos/new";
         }
 
-        memoService.save(MemoMapper.toSaveRequest(memoForm));
+        createMemoUseCase.handle(MemoMapper.toSaveRequest(memoForm));
 
         return "redirect:/memos";
     }

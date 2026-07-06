@@ -1,8 +1,8 @@
 package com.example.javamemoapp.presentation.controller.memo;
 
+import com.example.javamemoapp.application.usecase.memo.ShowMemoUseCase;
 import com.example.javamemoapp.entity.Memo;
 import com.example.javamemoapp.mapper.MemoMapper;
-import com.example.javamemoapp.service.MemoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class ShowController {
 
-    private final MemoService memoService;
+    private final ShowMemoUseCase showMemoUseCase;
 
-    public ShowController(MemoService memoService) {
-        this.memoService = memoService;
+    public ShowController(ShowMemoUseCase showMemoUseCase) {
+        this.showMemoUseCase = showMemoUseCase;
     }
 
     /**
@@ -26,7 +26,7 @@ public class ShowController {
      */
     @GetMapping("/memos/{id}")
     public String show(@PathVariable Long id, Model model) {
-        Memo memo = memoService.findById(id);
+        Memo memo = showMemoUseCase.handle(id);
 
         model.addAttribute("memo", memo);
         model.addAttribute("memoForm", MemoMapper.toForm(memo));

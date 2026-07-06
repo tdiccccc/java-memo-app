@@ -1,6 +1,6 @@
 package com.example.javamemoapp.presentation.controller.memo;
 
-import com.example.javamemoapp.service.MemoService;
+import com.example.javamemoapp.application.usecase.memo.ListMemosUseCase;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ListController {
 
-    private final MemoService memoService;
+    private final ListMemosUseCase listMemosUseCase;
 
-    public ListController(MemoService memoService) {
-        this.memoService = memoService;
+    public ListController(ListMemosUseCase listMemosUseCase) {
+        this.listMemosUseCase = listMemosUseCase;
     }
 
     /**
@@ -22,7 +22,7 @@ public class ListController {
      */
     @GetMapping("/memos")
     public String index(Model model) {
-        model.addAttribute("memos", memoService.findAll());
+        model.addAttribute("memos", listMemosUseCase.handle());
         return "memos/index";
     }
 }

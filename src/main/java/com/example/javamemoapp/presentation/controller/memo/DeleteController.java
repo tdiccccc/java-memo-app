@@ -1,6 +1,6 @@
 package com.example.javamemoapp.presentation.controller.memo;
 
-import com.example.javamemoapp.service.MemoService;
+import com.example.javamemoapp.application.usecase.memo.DeleteMemoUseCase;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class DeleteController {
 
-    private final MemoService memoService;
+    private final DeleteMemoUseCase deleteMemoUseCase;
 
-    public DeleteController(MemoService memoService) {
-        this.memoService = memoService;
+    public DeleteController(DeleteMemoUseCase deleteMemoUseCase) {
+        this.deleteMemoUseCase = deleteMemoUseCase;
     }
 
     /**
@@ -22,7 +22,7 @@ public class DeleteController {
      */
     @DeleteMapping("/memos/{id}")
     public String delete(@PathVariable Long id) {
-        memoService.delete(id);
+        deleteMemoUseCase.handle(id);
         return "redirect:/memos";
     }
 }
